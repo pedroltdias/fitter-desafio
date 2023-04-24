@@ -41,8 +41,8 @@ const Ticket: React.FC<TicketProps> = ({ ticket }) => {
     } else {
       setSelectedNumbers([...selectedNumbers, number])
     }
+    ticket.selectedNumbers = selectedNumbers
   }
-
   return (
     <div className="bg-secondary p-4 rounded shadow border border-blue-500">
       <div className="flex justify-between space-x-4 text-lg font-medium text-quaternary">

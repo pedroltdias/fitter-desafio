@@ -31,10 +31,7 @@ const Header: React.FC<HeaderProps> = ({ balance, onBuyTicket, onLogout }) => {
             </div>
           </div>
 
-          <button
-            className="text-gray-700 p-1 rounded hover:bg-gray-200 mr-4"
-            onClick={onLogout}
-          >
+          <button className="text-gray-700 p-1 rounded mr-4" onClick={onLogout}>
             <LogoutIcon className="w-6 h-6" />
           </button>
 

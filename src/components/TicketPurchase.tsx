@@ -8,15 +8,19 @@ import { buyTickets } from '../services/req'
 const TicketPurchase: React.FC = () => {
   const [tickets, setTickets] = useState<iTicket[]>([])
 
+  const totalBetAmount = tickets.reduce(
+    (accumulator, ticket) => accumulator + ticket.betAmount,
+    0,
+  )
+
   const addTicket = () => {
     const newTicket: iTicket = {
       id: tickets.length + 1,
+      betAmount: 0,
       selectedNumbers: [],
     }
     setTickets([...tickets, newTicket])
   }
-
-  const totalBetAmount = 3
 
   return (
     <>

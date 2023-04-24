@@ -10,11 +10,9 @@ const Navigation: React.FC = () => {
     <div className="flex justify-left space-x-4 my-4 ml-[4rem]">
       <button
         className={`text-white px-4 py-2 ${
-          pathname === '/buy-tickets'
-            ? 'text-blue-500 border-b-2 border-blue-500'
-            : ''
+          pathname === '/' ? 'text-blue-500 border-b-2 border-blue-500' : ''
         }`}
-        onClick={() => navigate('/buy-tickets')}
+        onClick={() => navigate('/')}
       >
         BILHETES
       </button>

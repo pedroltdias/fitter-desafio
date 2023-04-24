@@ -14,6 +14,7 @@ const Ticket: React.FC<TicketProps> = ({ ticket }) => {
     } else {
       setSelectedNumbers([...selectedNumbers, number])
     }
+    ticket.selectedNumbers = selectedNumbers
   }
 
   return (

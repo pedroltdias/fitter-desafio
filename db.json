@@ -3,17 +3,50 @@
     {
       "id": 1,
       "betAmount": 5,
-      "selectedNumbers": [1, 5, 8, 12, 14, 17, 19, 22, 23, 27]
+      "selectedNumbers": [
+        1,
+        5,
+        8,
+        12,
+        14,
+        17,
+        19,
+        22,
+        23,
+        27
+      ]
     },
     {
       "id": 2,
       "betAmount": 10,
-      "selectedNumbers": [2, 4, 7, 10, 13, 16, 20, 22, 25, 28]
+      "selectedNumbers": [
+        2,
+        4,
+        7,
+        10,
+        13,
+        16,
+        20,
+        22,
+        25,
+        28
+      ]
     },
     {
       "id": 3,
       "betAmount": 15,
-      "selectedNumbers": [3, 6, 9, 11, 15, 18, 21, 24, 26, 30]
+      "selectedNumbers": [
+        3,
+        6,
+        9,
+        11,
+        15,
+        18,
+        21,
+        24,
+        26,
+        30
+      ]
     }
   ]
 }

@@ -1,3 +1,4 @@
+import { iTicket } from './../pages/types'
 const apiUrl = 'http://localhost:4000'
 
 async function getAllTickets() {
@@ -24,4 +25,23 @@ async function createTicket(ticketData: any) {
   return data
 }
 
-export { getAllTickets, getTicket, createTicket }
+async function buyTickets(tickets: iTicket[]) {
+  try {
+    const response = await fetch(`${apiUrl}/tickets`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(tickets),
+    })
+    if (response.ok) {
+      alert('Bilhetes comprados com sucesso!')
+    } else {
+      alert('Erro ao comprar bilhetes. Tente novamente mais tarde.')
+    }
+  } catch (error) {
+    alert('Erro ao comprar bilhetes. Tente novamente mais tarde.')
+  }
+}
+
+export { getAllTickets, getTicket, createTicket, buyTickets }

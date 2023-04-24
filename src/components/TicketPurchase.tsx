@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Ticket from '../components/Ticket'
 import { AiOutlinePlus } from 'react-icons/ai'
 import PrizeList from './PrizeList'
-import { getAllTickets } from '../services/req'
 import { iTicket } from '../pages/types'
+import { buyTickets } from '../services/req'
 
 const TicketPurchase: React.FC = () => {
   const [tickets, setTickets] = useState<iTicket[]>([])
-  useEffect(() => {
-    async function fetchData() {
-      const allTickets = await getAllTickets()
-      setTickets(allTickets)
-      console.log('oi')
+
+  const totalBetAmount = tickets.reduce(
+    (accumulator, ticket) => accumulator + ticket.betAmount,
+    0,
+  )
+
+  const addTicket = () => {
+    const newTicket: iTicket = {
+      id: tickets.length + 1,
+      betAmount:
+        tickets.length === 0
+          ? 5.0
+          : tickets[tickets.length - 1].betAmount + 5.0,
+      selectedNumbers: [],
     }
-    fetchData()
-  }, [])
+    setTickets([...tickets, newTicket])
+  }
 
   return (
     <>
@@ -23,16 +32,27 @@ const TicketPurchase: React.FC = () => {
           {tickets.map((ticket) => (
             <Ticket key={ticket.id} ticket={ticket} />
           ))}
-          <div className="p-4 rounded shadow flex items-center justify-center border-2 border-dashed border-[#EA8E41] text-[#EA8E41] text-lg font-bold">
+          <button
+            className="p-4 rounded shadow flex items-center justify-center border-2 border-dashed border-[#EA8E41] text-[#EA8E41] text-lg font-bold"
+            onClick={addTicket}
+          >
             <AiOutlinePlus className="mr-2" />
             ADICIONAR BILHETE
-          </div>
+          </button>
         </div>
         <div className="mb-6 flex flex-col justify-between">
-          <p className="text-quaternary">Valor : R$ 0.00</p>
+          <p className="text-quaternary font-bold">
+            VALOR TOTAL:{' '}
+            <span className="text-green-600">
+              R${totalBetAmount.toFixed(2)}
+            </span>
+          </p>
           <button
             className="bg-[#2C3CCB] text-white w-[259px] h-[65px] rounded-xl hover:bg-blue-600 text-lg font-bold"
             style={{ margin: 'auto' }}
+            onClick={async () => {
+              await buyTickets(tickets)
+            }}
           >
             COMPRAR TICKETS
           </button>

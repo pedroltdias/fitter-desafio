@@ -5,7 +5,6 @@ import TicketPurchase from '../components/TicketPurchase'
 import Navigation from '../components/Navigation'
 
 const BuyTickets: React.FC = () => {
-  // Replace these values with actual data or state
   const balance = 1000
   const activeBets = 3
   const profit = 500
@@ -14,7 +13,7 @@ const BuyTickets: React.FC = () => {
     <>
       <Header balance={balance} onBuyTicket={() => {}} onLogout={() => {}} />
       <h2 className="text-2xl font-bold ml-[4rem] pt-[3rem] text-white">
-        Profile
+        Perfil
       </h2>
       <Profile activeBets={activeBets} balance={balance} profit={profit} />
       <div className="px-[3rem] w-full h-screen">

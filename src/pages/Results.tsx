@@ -90,7 +90,7 @@ const ResultsPage: React.FC = () => {
     <>
       <Header balance={balance} onBuyTicket={() => {}} onLogout={() => {}} />
       <h2 className="text-2xl font-bold ml-[4rem] pt-[3rem] text-white">
-        Results
+        Resultados
       </h2>
       <Profile
         activeBets={activeBets.length}

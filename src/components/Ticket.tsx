@@ -1,11 +1,11 @@
-// Ticket.tsx
 import React, { useState } from 'react'
+import { iTicket } from '../pages/types'
 
 interface TicketProps {
-  ticketNumber: number
+  ticket: iTicket
 }
 
-const Ticket: React.FC<TicketProps> = ({ ticketNumber }) => {
+const Ticket: React.FC<TicketProps> = ({ ticket }) => {
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([])
 
   const toggleNumber = (number: number) => {
@@ -19,9 +19,12 @@ const Ticket: React.FC<TicketProps> = ({ ticketNumber }) => {
   return (
     <div className="bg-secondary p-4 rounded shadow border border-blue-500">
       <div className="flex justify-between space-x-4 text-lg font-medium text-quaternary">
-        <p>Bilhete #{ticketNumber}</p>
+        <p>Bilhete #{ticket.id}</p>
         <p>
-          Valor: <span className="text-green-600">R$3,00</span>
+          Valor:{' '}
+          <span className="text-green-600">
+            R${ticket.betAmount.toFixed(2)}
+          </span>
         </p>
       </div>
 

@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Ticket from '../components/Ticket'
 import { AiOutlinePlus } from 'react-icons/ai'
 import PrizeList from './PrizeList'
+import { getAllTickets } from '../services/req'
+import { iTicket } from '../pages/types'
 
 const TicketPurchase: React.FC = () => {
+  const [tickets, setTickets] = useState<iTicket[]>([])
+  useEffect(() => {
+    async function fetchData() {
+      const allTickets = await getAllTickets()
+      setTickets(allTickets)
+      console.log('oi')
+    }
+    fetchData()
+  }, [])
+
   return (
     <>
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-4 gap-4 mb-6">
-          {Array.from({ length: 3 }, (_, index) => (
-            <Ticket key={index} ticketNumber={index + 1} />
+          {tickets.map((ticket) => (
+            <Ticket key={ticket.id} ticket={ticket} />
           ))}
           <div className="p-4 rounded shadow flex items-center justify-center border-2 border-dashed border-[#EA8E41] text-[#EA8E41] text-lg font-bold">
             <AiOutlinePlus className="mr-2" />

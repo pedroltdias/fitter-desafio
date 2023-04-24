@@ -7,3 +7,9 @@ export type Bet = {
   isWinning: boolean
   prize: number
 }
+
+export interface iTicket {
+  id: number
+  selectedNumbers: number[]
+  betAmount: number
+}

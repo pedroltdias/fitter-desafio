@@ -15,7 +15,7 @@ const BuyTickets: React.FC = () => {
       <h2 className="text-2xl font-bold ml-[4rem] pt-[3rem] text-white">
         Perfil
       </h2>
-      <Profile activeBets={activeBets} balance={balance} profit={profit} />
+      <Profile tickets={activeBets} balance={balance} profit={profit} />
       <div className="px-[3rem] w-full h-screen">
         <div className="bg-secondary rounded-lg shadow-lg py-[2rem]">
           <Navigation />

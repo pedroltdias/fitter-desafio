@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Profile from '../components/Profile'
 import ResultsDrawn from '../components/ResultsDrawn'
 import DrawResults from '../components/DrawResults'
 import Navigation from '../components/Navigation'
-import { iBet } from '../types/bets'
+import { iTicket } from '../types/iTicket'
+import { getAllTickets } from '../services/req'
 
 const ResultsPage: React.FC = () => {
   const balance = 1000
@@ -14,7 +15,16 @@ const ResultsPage: React.FC = () => {
   const [drawnNumbers, setDrawnNumbers] = useState<number[]>([])
   const [prizePool, setPrizePool] = useState<number>(0)
 
-  const [activeBets, setActiveBets] = useState<iBet[]>([])
+  const [tickets, setTickets] = useState<iTicket[]>([])
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      const response = await getAllTickets()
+      setTickets(response)
+    }
+
+    fetchTickets()
+  }, [])
 
   const calculatePrize = (commonNumbers: number, betAmount: number) => {
     const prizeMultipliers = [
@@ -29,30 +39,30 @@ const ResultsPage: React.FC = () => {
       () => Math.floor(Math.random() * 25) + 1,
     )
 
-    const updatedActiveBets = activeBets.map((bet) => {
-      const commonDrawnNumbers = bet.numbers.filter((number: number) =>
-        numbers.includes(number),
+    const updatedTickets = tickets.map((ticket) => {
+      const commonDrawnNumbers = ticket.selectedNumbers.filter(
+        (number: number) => numbers.includes(number),
       )
       const isWinning = commonDrawnNumbers.length >= 5
       const prize = isWinning
-        ? calculatePrize(commonDrawnNumbers.length, bet.amount)
+        ? calculatePrize(commonDrawnNumbers.length, ticket.betAmount)
         : 0
 
       return {
-        ...bet,
+        ...ticket,
         drawnNumbers: commonDrawnNumbers,
         isWinning,
         prize,
       }
     })
 
-    const newPrizePool = updatedActiveBets.reduce(
-      (sum, bet) => sum + bet.prize,
+    const newPrizePool = updatedTickets.reduce(
+      (sum, ticket) => sum + ticket.prize,
       0,
     )
 
     setDrawnNumbers(numbers)
-    setActiveBets(updatedActiveBets)
+    setTickets(updatedTickets)
     setBetNumber(betNumber + 1)
     setPrizePool(newPrizePool)
   }
@@ -63,11 +73,7 @@ const ResultsPage: React.FC = () => {
       <h2 className="text-2xl font-bold ml-[4rem] pt-[3rem] text-white">
         Resultados
       </h2>
-      <Profile
-        activeBets={activeBets.length}
-        balance={balance}
-        profit={profit}
-      />
+      <Profile tickets={tickets.length} balance={balance} profit={profit} />
       <div className="px-[3rem] w-full h-screen">
         <div className="bg-secondary rounded-lg shadow-lg p-3 mt-6">
           <Navigation />
@@ -76,7 +82,7 @@ const ResultsPage: React.FC = () => {
             drawnNumbers={drawnNumbers}
             onBettingDraws={bettingDraws}
           />
-          <ResultsDrawn activeBets={activeBets} prizePool={prizePool} />
+          <ResultsDrawn tickets={tickets} prizePool={prizePool} />
         </div>
       </div>
     </>

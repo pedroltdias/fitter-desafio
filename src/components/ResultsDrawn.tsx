@@ -1,21 +1,27 @@
 import React from 'react'
-import { iBet } from '../types/bets'
+import { iTicket } from '../types/iTicket'
 
 interface ResultsDrawnProps {
-  activeBets: iBet[]
+  tickets: iTicket[]
   prizePool: number
 }
 
-const ResultsDrawn: React.FC<ResultsDrawnProps> = ({
-  activeBets,
-  prizePool,
-}) => {
+const ResultsDrawn: React.FC<ResultsDrawnProps> = ({ tickets, prizePool }) => {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
     }).format(amount)
   }
+
+  const currentDate = new Date()
+  const formattedDate = currentDate
+    .toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
+    .replace(/\//g, '.')
 
   return (
     <div className="flex flex-col m-5">
@@ -37,32 +43,26 @@ const ResultsDrawn: React.FC<ResultsDrawnProps> = ({
           </tr>
         </thead>
         <tbody className="bg-secondary divide-y divide-black">
-          {activeBets.map((bet: any) => (
-            <tr key={bet.id}>
+          {tickets.map((ticket: iTicket) => (
+            <tr key={ticket.id}>
               <td className="px-6 py-4 whitespace-nowrap text-quaternary">
-                #{bet.id}
+                #{ticket.id}
               </td>
               <td className="px-4 py-4 whitespace-nowrap text-quaternary text-left">
-                {formatCurrency(bet.amount)}
+                {formatCurrency(ticket.betAmount)}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-quaternary">
-                {new Date(bet.date)
-                  .toLocaleDateString('pt-BR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                  })
-                  .replace(/\//g, '.')}
+                {formattedDate}
               </td>
               <td className="px-6 py-4 whitespace-nowrap flex">
                 <span className="mr-4 text-quaternary">
-                  {bet.numbers.length}
+                  {ticket.selectedNumbers.length}
                 </span>
-                {bet.numbers.map((number: number) => (
+                {ticket.selectedNumbers.map((number: number) => (
                   <span
                     key={number}
                     className={`text-white w-6 h-6 flex items-center justify-center rounded-full mr-2 ${
-                      bet.numbers.includes(number)
+                      ticket.selectedNumbers.includes(number)
                         ? 'bg-[#5bd4d9]'
                         : 'bg-[#313051]'
                     }`}

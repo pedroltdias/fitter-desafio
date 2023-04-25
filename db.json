@@ -1,4 +1,30 @@
 {
   "tickets": [
+    [
+      {
+        "id": 1,
+        "betAmount": 3,
+        "selectedNumbers": [
+          3,
+          8
+        ]
+      },
+      {
+        "id": 2,
+        "betAmount": 3,
+        "selectedNumbers": [
+          3,
+          8
+        ]
+      },
+      {
+        "id": 3,
+        "betAmount": 3,
+        "selectedNumbers": [
+          11,
+          12
+        ]
+      }
+    ]
   ]
 }

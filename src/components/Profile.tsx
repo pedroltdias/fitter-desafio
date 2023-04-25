@@ -4,12 +4,12 @@ import cash from '../assets/icons/cash.svg'
 import lucro from '../assets/icons/lucro.svg'
 
 interface ProfileProps {
-  activeBets: number
+  tickets: number
   balance: number
   profit: number
 }
 
-const Profile: React.FC<ProfileProps> = ({ activeBets, balance, profit }) => {
+const Profile: React.FC<ProfileProps> = ({ tickets, balance, profit }) => {
   return (
     <div className="p-6">
       <div className="grid grid-cols-3 gap-4 p-6">
@@ -19,7 +19,7 @@ const Profile: React.FC<ProfileProps> = ({ activeBets, balance, profit }) => {
             <img src={ticket} alt="Ticket" className="w-8 h-8 ml-2" />
           </div>
           <p className="text-tertiary">
-            <span className="font-bold">{activeBets}</span> ATIVAS
+            <span className="font-bold">{tickets}</span> ATIVAS
           </p>
         </div>
 

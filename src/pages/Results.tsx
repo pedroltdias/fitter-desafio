@@ -4,8 +4,7 @@ import Profile from '../components/Profile'
 import ResultsDrawn from '../components/ResultsDrawn'
 import DrawResults from '../components/DrawResults'
 import Navigation from '../components/Navigation'
-import { Bet } from './types'
-import TicketPurchase from '../components/TicketPurchase'
+import { iBet } from '../types/bets'
 
 const ResultsPage: React.FC = () => {
   const balance = 1000
@@ -15,35 +14,7 @@ const ResultsPage: React.FC = () => {
   const [drawnNumbers, setDrawnNumbers] = useState<number[]>([])
   const [prizePool, setPrizePool] = useState<number>(0)
 
-  const [activeBets, setActiveBets] = useState<Bet[]>([
-    {
-      id: 1,
-      date: '2023-04-22',
-      numbers: [1, 2, 3, 4, 5],
-      amount: 10,
-      drawnNumbers: [],
-      isWinning: false,
-      prize: 0,
-    },
-    {
-      id: 2,
-      date: '2023-04-22',
-      numbers: [12, 15, 19, 22, 25],
-      amount: 15,
-      drawnNumbers: [],
-      isWinning: false,
-      prize: 0,
-    },
-    {
-      id: 3,
-      date: '2023-04-22',
-      numbers: [6, 8, 11, 14, 20],
-      amount: 20,
-      drawnNumbers: [],
-      isWinning: false,
-      prize: 0,
-    },
-  ])
+  const [activeBets, setActiveBets] = useState<iBet[]>([])
 
   const calculatePrize = (commonNumbers: number, betAmount: number) => {
     const prizeMultipliers = [
@@ -59,7 +30,7 @@ const ResultsPage: React.FC = () => {
     )
 
     const updatedActiveBets = activeBets.map((bet) => {
-      const commonDrawnNumbers = bet.numbers.filter((number) =>
+      const commonDrawnNumbers = bet.numbers.filter((number: number) =>
         numbers.includes(number),
       )
       const isWinning = commonDrawnNumbers.length >= 5
@@ -106,7 +77,6 @@ const ResultsPage: React.FC = () => {
             onBettingDraws={bettingDraws}
           />
           <ResultsDrawn activeBets={activeBets} prizePool={prizePool} />
-          <TicketPurchase />
         </div>
       </div>
     </>

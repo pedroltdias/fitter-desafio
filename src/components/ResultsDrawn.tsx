@@ -1,5 +1,10 @@
 import React from 'react'
-import { ResultsDrawnProps } from '../types/bets'
+import { iBet } from '../types/bets'
+
+interface ResultsDrawnProps {
+  activeBets: iBet[]
+  prizePool: number
+}
 
 const ResultsDrawn: React.FC<ResultsDrawnProps> = ({
   activeBets,
@@ -32,7 +37,7 @@ const ResultsDrawn: React.FC<ResultsDrawnProps> = ({
           </tr>
         </thead>
         <tbody className="bg-secondary divide-y divide-black">
-          {activeBets.map((bet) => (
+          {activeBets.map((bet: any) => (
             <tr key={bet.id}>
               <td className="px-6 py-4 whitespace-nowrap text-quaternary">
                 #{bet.id}
@@ -53,7 +58,7 @@ const ResultsDrawn: React.FC<ResultsDrawnProps> = ({
                 <span className="mr-4 text-quaternary">
                   {bet.numbers.length}
                 </span>
-                {bet.numbers.map((number) => (
+                {bet.numbers.map((number: number) => (
                   <span
                     key={number}
                     className={`text-white w-6 h-6 flex items-center justify-center rounded-full mr-2 ${

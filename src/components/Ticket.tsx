@@ -1,38 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { iTicket } from '../pages/types'
+import { iTicket } from '../types/iTicket'
 
 interface TicketProps {
   ticket: iTicket
+  onTicketChange: (updatedTicket: iTicket) => void
 }
 
-const Ticket: React.FC<TicketProps> = ({ ticket }) => {
+const Ticket: React.FC<TicketProps> = ({ ticket, onTicketChange }) => {
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([])
-  const [betAmount, setBetAmount] = useState<number>(3)
 
   useEffect(() => {
     const selectedNumbersLength = selectedNumbers.length
     if (selectedNumbersLength >= 15 && selectedNumbersLength < 20) {
-      setBetAmount(getBetAmount(selectedNumbersLength))
+      ticket.betAmount = getBetAmount(selectedNumbersLength)
     } else if (selectedNumbersLength >= 20) {
-      setBetAmount(250000)
+      ticket.betAmount = 250000
     } else {
-      setBetAmount(3)
+      ticket.betAmount = 3
     }
+    onTicketChange(ticket)
   }, [selectedNumbers])
 
   const getBetAmount = (selectedNumbersLength: number): number => {
-    switch (selectedNumbersLength) {
-      case 16:
-        return 100.0
-      case 17:
-        return 300.0
-      case 18:
-        return 5000.0
-      case 19:
-        return 15000.0
-      default:
-        return 3.0
-    }
+    const betAmounts = [3, 100, 300, 5000, 15000]
+    const index = selectedNumbersLength - 15
+    return betAmounts[index]
   }
 
   const toggleNumber = (number: number) => {
@@ -49,7 +41,9 @@ const Ticket: React.FC<TicketProps> = ({ ticket }) => {
         <p>Bilhete #{ticket.id}</p>
         <p>
           Valor:{' '}
-          <span className="text-green-600">R${betAmount.toFixed(2)}</span>
+          <span className="text-green-600">
+            R${ticket.betAmount.toFixed(2)}
+          </span>
         </p>
       </div>
 

@@ -1,16 +1,15 @@
-import { iTicket } from './../pages/types'
+import { iTicket } from '../types/iTicket'
+
 const apiUrl = 'http://localhost:4000'
 
 async function getAllTickets() {
   const response = await fetch(`${apiUrl}/tickets`)
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 async function getTicket(ticketId: number) {
   const response = await fetch(`${apiUrl}/tickets/${ticketId}`)
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 async function createTicket(ticketData: any) {
@@ -21,8 +20,7 @@ async function createTicket(ticketData: any) {
     },
     body: JSON.stringify(ticketData),
   })
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 async function buyTickets(tickets: iTicket[]) {

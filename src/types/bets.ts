@@ -1,4 +1,4 @@
-export type Bet = {
+export interface iBet {
   id: number
   date: string
   numbers: number[]
@@ -6,15 +6,4 @@ export type Bet = {
   drawnNumbers: number[]
   isWinning: boolean
   prize: number
-}
-
-export interface iTicket {
-  id: number
-  selectedNumbers: number[]
-  betAmount: number
-}
-
-export interface ResultsDrawnProps {
-  activeBets: Bet[]
-  prizePool: number
 }

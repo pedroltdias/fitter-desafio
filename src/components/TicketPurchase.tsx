@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Ticket from '../components/Ticket'
 import { AiOutlinePlus } from 'react-icons/ai'
 import PrizeList from './PrizeList'
-import { iTicket } from '../pages/types'
+import { iTicket } from '../types/iTicket'
 import { buyTickets } from '../services/req'
 
 const TicketPurchase: React.FC = () => {
@@ -16,10 +16,22 @@ const TicketPurchase: React.FC = () => {
   const addTicket = () => {
     const newTicket: iTicket = {
       id: tickets.length + 1,
-      betAmount: 0,
+      betAmount: 3,
       selectedNumbers: [],
     }
     setTickets([...tickets, newTicket])
+  }
+
+  const updateTicket = (updatedTicket: iTicket) => {
+    setTickets((prevTickets) =>
+      prevTickets.map((ticket) => {
+        if (ticket.id === updatedTicket.id) {
+          return updatedTicket
+        } else {
+          return ticket
+        }
+      }),
+    )
   }
 
   return (
@@ -27,7 +39,11 @@ const TicketPurchase: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-4 gap-4 mb-6">
           {tickets.map((ticket) => (
-            <Ticket key={ticket.id} ticket={ticket} />
+            <Ticket
+              key={ticket.id}
+              ticket={ticket}
+              onTicketChange={updateTicket}
+            />
           ))}
           <button
             className="p-4 rounded shadow flex items-center justify-center border-2 border-dashed border-[#EA8E41] text-[#EA8E41] text-lg font-bold"
